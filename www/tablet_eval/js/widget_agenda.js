@@ -138,14 +138,17 @@ var Modul_agenda = function () {
                 text += '<div class="center large white ' + icon + '" style="line-height:30px;background-color:' + color + '; min-height:30px; min-width:30px;">';
                 text += abbr;
                 text += '</div>';
-                text += '<div class="" style="padding-left:5px; width:100%; min-height:30px">';
+                text += '<div class="" style="padding-left:5px; width:100%; min-height:30px; background:rgba(0, 0, 0, .08);">';
                 text += '<div class="left-align bold">' + summary + '</div>';
-                text += '<div class="left-align small darker">' + bdate.hhmm() + ' - ';
+                text += '<div class="left-align small darker">';
 
-                if( diffDays(bdate, edate) == 0 )
-                    text += edate.hhmm();
+                var durationDays = diffDays(bdate, edate);
+                if (durationDays == 1 && bdate.getHours() == 0 && bdate.getMinutes() == 0 && edate.getHours() == 0 && edate.getMinutes() == 0)
+                    text += 'Ganzer Tag';
+                else if (durationDays == 0)
+                    text += bdate.hhmm() + ' - ' + edate.hhmm();
                 else
-                    text += me.prettyPrintDate(edate);
+                    text += bdate.hhmm() + ' - ' + me.prettyPrintDate(edate);
 
                 text += '</div>';
                 text += '</div>';
